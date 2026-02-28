@@ -80,6 +80,27 @@ if __name__ == '__main__':
     # Registra o recebedor de fotos
     app.add_handler(MessageHandler(filters.PHOTO, receber_comprovante))
     
-    print("Bot online! Agora você receberá os comprovantes no seu privado.")
+        print("Bot online! Agora você receberá as notificações.")
+    
+    # --- CÓDIGO PARA O RENDER NÃO DAR TIMEOUT ---
+    import os
+    from http.server import HTTPServer, BaseHTTPRequestHandler
+    import threading
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b"Bot is alive!")
+
+    def run_server():
+        port = int(os.environ.get("PORT", 8080))
+        server = HTTPServer(("", port), Handler)
+        server.serve_forever()
+
+    # Liga o mini-servidor em segundo plano ANTES do bot
+    threading.Thread(target=run_server, daemon=True).start()
+    # --------------------------------------------
+
+    # Agora sim, liga o bot do Telegram
     app.run_polling(poll_interval=0.5)
-  
