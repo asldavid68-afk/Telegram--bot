@@ -77,6 +77,7 @@ if __name__ == '__main__':
     
     # Registra seus handlers aqui
     app.add_handler(CommandHandler("start", start))
+    app.add_handler(CallbackQueryHandler(button_handler))
     
     print("Bot online! Agora você receberá as notificações.")
     
