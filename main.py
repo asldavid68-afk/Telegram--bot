@@ -70,19 +70,16 @@ async def receber_comprovante(update: Update, context: ContextTypes.DEFAULT_TYPE
         chat_id=MEU_ID_TELEGRAM, 
         text=f"📩 **Novo comprovante recebido de:** @{update.message.from_user.username}"
     )
+# ... (resto do seu código acima)
 
-if __name__ == '__main__':
-    app = ApplicationBuilder().token(TOKEN).connect_timeout(30).read_timeout(30).build()
+if if __name__ == '__main__':
+    app = ApplicationBuilder().token(TOKEN).build()
     
+    # Registra seus handlers aqui
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CallbackQueryHandler(button))
     
-    # Registra o recebedor de fotos
-    app.add_handler(MessageHandler(filters.PHOTO, receber_comprovante))
+    print("Bot online! Agora você receberá as notificações.")
     
-        print("Bot online! Agora você receberá as notificações.")
-    
-    # --- CÓDIGO PARA O RENDER NÃO DAR TIMEOUT ---
     import os
     from http.server import HTTPServer, BaseHTTPRequestHandler
     import threading
@@ -98,9 +95,6 @@ if __name__ == '__main__':
         server = HTTPServer(("", port), Handler)
         server.serve_forever()
 
-    # Liga o mini-servidor em segundo plano ANTES do bot
     threading.Thread(target=run_server, daemon=True).start()
-    # --------------------------------------------
-
-    # Agora sim, liga o bot do Telegram
     app.run_polling(poll_interval=0.5)
+    
