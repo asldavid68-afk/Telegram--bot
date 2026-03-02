@@ -72,7 +72,7 @@ async def receber_comprovante(update: Update, context: ContextTypes.DEFAULT_TYPE
     )
 # ... (resto do seu código acima)
 
-if if __name__ == '__main__':
+if __name__ == '__main__':
     app = ApplicationBuilder().token(TOKEN).build()
     
     # Registra seus handlers aqui
